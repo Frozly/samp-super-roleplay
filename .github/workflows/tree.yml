@@ -1,0 +1,25 @@
+name: Generate File Tree
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  generate-tree:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Generate Structure
+        run: |
+          echo "=== SAMP Super Roleplay File Structure ===" > project_structure.txt
+          find . -not -path '*/.*' | sort >> project_structure.txt
+
+      - name: Upload Structure Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-file-structure
+          path: project_structure.txt
+
