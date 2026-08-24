@@ -27,9 +27,9 @@ jobs:
 
       - name: Download & Install YSI Includes
         run: |
-          wget https://github.com/pawn-scripting/YSI-Includes/archive/refs/heads/5.x.zip -O ysi.zip
+          wget https://github.com/pawn-lang/YSI-Includes/archive/refs/heads/main.zip -O ysi.zip || wget https://github.com/pawn-lang/YSI-Includes/archive/refs/heads/master.zip -O ysi.zip
           unzip ysi.zip
-          cp -r YSI-Includes-5.x/* pawno/include/
+          cp -r YSI-Includes-*/* pawno/include/
 
       - name: Compile Gamemode
         run: |
