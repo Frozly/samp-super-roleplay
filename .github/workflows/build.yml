@@ -1,0 +1,33 @@
+name: Compile Pawn Gamemode
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pawn Compiler
+        uses: Southclaws/setup-pawn@v1
+        with:
+          pawn-version: '3.10.10'
+
+      - name: Compile Gamemode
+        run: |
+          mkdir -p gamemodes
+          pawncc gamemodes/srp.pwn -i="pawno/include" -o="gamemodes/srp.amx" -Z+ -d3
+
+      - name: Upload Compiled AMX
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-gamemode
+          path: gamemodes/srp.amx
+
