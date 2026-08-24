@@ -15,20 +15,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Pawn Compiler & Git
+      - name: Install Pawn Compiler & Tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget git
+          sudo apt-get install -y wget unzip
           wget https://github.com/pawn-lang/compiler/releases/download/v3.10.10/pawnc-3.10.10-linux.tar.gz
           tar -xvf pawnc-3.10.10-linux.tar.gz
           sudo cp -r pawnc-3.10.10-linux/bin/* /usr/local/bin/
           sudo cp -r pawnc-3.10.10-linux/lib/* /usr/local/lib/
           sudo ldconfig
 
-      - name: Download Missing YSI Library
+      - name: Download & Install YSI Includes
         run: |
-          git clone https://github.com/pawn-scripting/YSI-Includes.git ysi_temp
-          cp -r ysi_temp/* pawno/include/
+          wget https://github.com/pawn-scripting/YSI-Includes/archive/refs/heads/5.x.zip -O ysi.zip
+          unzip ysi.zip
+          cp -r YSI-Includes-5.x/* pawno/include/
 
       - name: Compile Gamemode
         run: |
