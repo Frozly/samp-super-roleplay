@@ -34,7 +34,7 @@ jobs:
       - name: Compile Gamemode
         run: |
           mkdir -p gamemodes
-          pawncc gamemodes/srp.pwn -i="pawno/include" -o="gamemodes/srp.amx" -Z+ -d3
+          pawncc gamemodes/srp.pwn -i="pawno/include" -i="gamemodes" -i="." -o="gamemodes/srp.amx" -Z+ -d3
 
       - name: Upload Compiled AMX
         uses: actions/upload-artifact@v4
